@@ -707,3 +707,260 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 }());
+
+/* ==========================================================================
+   legezt AI Support Chat Widget
+   - Lightweight, dependency-free vanilla JS
+   - Connects to AWS API Gateway endpoint
+   - Smooth transitions, auto-scrolling, typing indicator & suggestion chips
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  function initChatWidget() {
+    const trigger = document.getElementById('lcw-trigger');
+    const panel = document.getElementById('lcw-panel');
+    const closeBtn = document.getElementById('lcw-close');
+    const messagesArea = document.getElementById('lcw-messages');
+    const chipsArea = document.getElementById('lcw-chips');
+    const form = document.getElementById('lcw-form');
+    const input = document.getElementById('lcw-input');
+    const sendBtn = form ? form.querySelector('.lcw-send') : null;
+
+    if (!trigger || !panel || !messagesArea || !form || !input) return;
+
+    const CHAT_ENDPOINT = 'https://l07aqoacd3.execute-api.us-east-1.amazonaws.com/chat';
+    const GREETING_TEXT = "Hi there! I'm legezt AI support for Mohd Jibraan. Ask me anything about his skills, projects, experience, or how to get in touch!";
+
+    let isWaitingForReply = false;
+    let greetingShown = false;
+    let transitionTimer = null;
+    let typingElement = null;
+
+    function isPanelOpen() {
+      return !panel.hasAttribute('hidden') && panel.classList.contains('lcw-panel--open');
+    }
+
+    function scrollToBottom() {
+      messagesArea.scrollTop = messagesArea.scrollHeight;
+    }
+
+    function appendMessage(sender, text) {
+      const msg = document.createElement('div');
+      msg.className = 'lcw-msg ' + (sender === 'user' ? 'lcw-msg--user' : 'lcw-msg--ai');
+      msg.textContent = text;
+      messagesArea.appendChild(msg);
+      scrollToBottom();
+      return msg;
+    }
+
+    function appendErrorMessage(text, retryQuery) {
+      const msg = document.createElement('div');
+      msg.className = 'lcw-msg lcw-msg--error';
+
+      const textNode = document.createElement('div');
+      textNode.textContent = text;
+      msg.appendChild(textNode);
+
+      if (retryQuery) {
+        const retryBtn = document.createElement('button');
+        retryBtn.type = 'button';
+        retryBtn.className = 'lcw-retry-btn';
+        retryBtn.textContent = 'Retry';
+        retryBtn.addEventListener('click', function () {
+          sendMessage(retryQuery);
+        });
+        msg.appendChild(retryBtn);
+      }
+
+      messagesArea.appendChild(msg);
+      scrollToBottom();
+    }
+
+    function showTypingIndicator() {
+      if (typingElement) return;
+      typingElement = document.createElement('div');
+      typingElement.className = 'lcw-typing';
+      typingElement.setAttribute('aria-label', 'AI is typing');
+      typingElement.innerHTML = '<span class="lcw-typing-dot"></span><span class="lcw-typing-dot"></span><span class="lcw-typing-dot"></span>';
+      messagesArea.appendChild(typingElement);
+      scrollToBottom();
+    }
+
+    function removeTypingIndicator() {
+      if (typingElement && typingElement.parentNode) {
+        typingElement.parentNode.removeChild(typingElement);
+      }
+      typingElement = null;
+    }
+
+    function hideChips() {
+      if (chipsArea) {
+        chipsArea.style.display = 'none';
+      }
+    }
+
+    function openPanel() {
+      if (transitionTimer) {
+        clearTimeout(transitionTimer);
+        transitionTimer = null;
+      }
+
+      panel.removeAttribute('hidden');
+      trigger.setAttribute('aria-expanded', 'true');
+
+      // Double requestAnimationFrame ensures smooth transition
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          panel.classList.add('lcw-panel--open');
+        });
+      });
+
+      if (!greetingShown) {
+        appendMessage('ai', GREETING_TEXT);
+        greetingShown = true;
+      }
+
+      scrollToBottom();
+      setTimeout(function () {
+        input.focus();
+      }, 80);
+    }
+
+    function closePanel() {
+      panel.classList.remove('lcw-panel--open');
+      trigger.setAttribute('aria-expanded', 'false');
+
+      function onTransitionEnd(e) {
+        if (e.target !== panel) return;
+        panel.removeEventListener('transitionend', onTransitionEnd);
+        if (!panel.classList.contains('lcw-panel--open')) {
+          panel.setAttribute('hidden', '');
+        }
+      }
+      panel.addEventListener('transitionend', onTransitionEnd);
+
+      transitionTimer = setTimeout(function () {
+        panel.setAttribute('hidden', '');
+      }, 280);
+
+      trigger.focus();
+    }
+
+    function togglePanel() {
+      if (isPanelOpen()) {
+        closePanel();
+      } else {
+        openPanel();
+      }
+    }
+
+    async function sendMessage(text) {
+      const trimmed = (text || '').trim();
+      if (!trimmed || isWaitingForReply) return;
+
+      isWaitingForReply = true;
+      hideChips();
+
+      // Clear input and reset height
+      input.value = '';
+      input.style.height = '';
+      if (sendBtn) sendBtn.disabled = true;
+
+      // Append user bubble
+      appendMessage('user', trimmed);
+
+      // Show typing indicator
+      showTypingIndicator();
+
+      try {
+        const response = await fetch(CHAT_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            bot: 'portfolio',
+            message: trimmed
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('HTTP ' + response.status);
+        }
+
+        const data = await response.json();
+        removeTypingIndicator();
+
+        if (data && typeof data.reply === 'string') {
+          appendMessage('ai', data.reply);
+        } else if (data && data.error) {
+          appendErrorMessage('Sorry: ' + data.error + '. Please try again.', trimmed);
+        } else {
+          appendErrorMessage("Sorry, I couldn't process the response. Please try again.", trimmed);
+        }
+      } catch (err) {
+        removeTypingIndicator();
+        appendErrorMessage("Sorry, I couldn't reach the AI service right now. Please check your connection and try again.", trimmed);
+      } finally {
+        isWaitingForReply = false;
+        if (sendBtn) sendBtn.disabled = false;
+        if (isPanelOpen()) {
+          input.focus();
+        }
+      }
+    }
+
+    // Trigger click
+    trigger.addEventListener('click', togglePanel);
+
+    // Close button click
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closePanel);
+    }
+
+    // Suggestion chips
+    if (chipsArea) {
+      const chipButtons = chipsArea.querySelectorAll('.lcw-chip');
+      chipButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const query = btn.getAttribute('data-msg') || btn.textContent.trim();
+          sendMessage(query);
+        });
+      });
+    }
+
+    // Enter sends, Shift+Enter inserts newline
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage(input.value);
+      }
+    });
+
+    // Auto-grow textarea up to 100px
+    input.addEventListener('input', function () {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+    });
+
+    // Form submit button
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      sendMessage(input.value);
+    });
+
+    // Escape key closes panel
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isPanelOpen()) {
+        closePanel();
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initChatWidget);
+  } else {
+    initChatWidget();
+  }
+}());
