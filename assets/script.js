@@ -588,3 +588,122 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+/* ==========================================================================
+   Certificate Lightbox — image-only gallery with modal detail view
+   Lightweight, no dependencies. Triggered by .cert-thumb-card[data-cert-*].
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  const lightbox    = document.getElementById('cert-lightbox');
+  const panel       = lightbox && lightbox.querySelector('.cert-lightbox-panel');
+  const closeBtn    = document.getElementById('cert-lightbox-close');
+  const backdrop    = lightbox && lightbox.querySelector('.cert-lightbox-backdrop');
+  const modalImg    = document.getElementById('cert-lightbox-img');
+  const modalTitle  = document.getElementById('cert-lightbox-title');
+  const modalIssuer = document.getElementById('cert-lightbox-issuer');
+  const modalDesc   = document.getElementById('cert-lightbox-desc');
+  const modalLink   = document.getElementById('cert-lightbox-link');
+
+  if (!lightbox) return; // Guard: section not present
+
+  let previouslyFocused = null;
+
+  /* ---------- Helpers ---------- */
+
+  function openModal(card) {
+    const type   = card.dataset.certType   || 'image';
+    const src    = card.dataset.certSrc    || '';
+    const title  = card.dataset.certTitle  || '';
+    const issuer = card.dataset.certIssuer || '';
+    const desc   = card.dataset.certDesc   || '';
+
+    // Populate image
+    const thumbImg = card.querySelector('img');
+    if (type === 'pdf') {
+      // For PDFs keep the thumbnail in the modal, open via button
+      modalImg.src = thumbImg ? thumbImg.src : '';
+      modalLink.href = src;
+      modalLink.removeAttribute('hidden');
+    } else {
+      // For images swap to the full-res file
+      modalImg.src = src;
+      modalLink.setAttribute('hidden', '');
+    }
+    modalImg.alt = title;
+
+    // Populate text
+    modalTitle.textContent  = title;
+    modalIssuer.textContent = issuer;
+    modalDesc.textContent   = desc;
+
+    // Show
+    previouslyFocused = document.activeElement;
+    lightbox.removeAttribute('hidden');
+    // Trigger CSS transition on next paint
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        lightbox.classList.add('cert-lightbox--open');
+      });
+    });
+
+    // Lock scroll
+    document.body.style.overflow = 'hidden';
+
+    // Focus close button for accessibility
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    lightbox.classList.remove('cert-lightbox--open');
+
+    // Wait for CSS transition before hiding
+    panel.addEventListener('transitionend', function handler() {
+      panel.removeEventListener('transitionend', handler);
+      lightbox.setAttribute('hidden', '');
+    });
+
+    // Restore scroll
+    document.body.style.overflow = '';
+
+    // Return focus to the card that opened the modal
+    if (previouslyFocused) previouslyFocused.focus();
+  }
+
+  /* ---------- Event listeners ---------- */
+
+  // Open on thumbnail card click
+  document.querySelectorAll('.cert-thumb-card').forEach(function (card) {
+    card.addEventListener('click', function () { openModal(card); });
+  });
+
+  // Close on X button
+  closeBtn.addEventListener('click', closeModal);
+
+  // Close on backdrop click
+  backdrop.addEventListener('click', closeModal);
+
+  // Close on Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !lightbox.hasAttribute('hidden')) {
+      closeModal();
+    }
+  });
+
+  // Trap focus inside modal when open
+  lightbox.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab' || lightbox.hasAttribute('hidden')) return;
+    var focusable = lightbox.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    var first = focusable[0];
+    var last  = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
+    }
+  });
+
+}());
