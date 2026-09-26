@@ -950,12 +950,48 @@
             <!-- Certifications -->
             <div class="certifications-box">
               <div class="cert-label">Certification</div>
-              <div class="cert-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="8" r="7"></circle>
-                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                </svg>
-                <span>Python with AI — Internshala</span>
+              <!-- Certificate showcase: embedded PDF preview -->
+              <div class="cert-showcase">
+                <div class="cert-showcase-header">
+                  <svg class="cert-showcase-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="12" cy="8" r="7"></circle>
+                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                  </svg>
+                  <div class="cert-showcase-info">
+                    <div class="cert-showcase-title">Programming in Python with AI — Internshala</div>
+                    <div class="cert-showcase-subtitle">8-week online training &middot; 100% final score &middot; Aug 2026</div>
+                  </div>
+                </div>
+                <div class="cert-showcase-embed-wrap">
+                  <object
+                    class="cert-showcase-embed"
+                    data="assets/python-certificate.pdf"
+                    type="application/pdf"
+                    aria-label="Programming in Python with AI — Internshala certificate PDF"
+                  >
+                    <embed
+                      src="assets/python-certificate.pdf"
+                      type="application/pdf"
+                      class="cert-showcase-embed"
+                      aria-label="Programming in Python with AI — Internshala certificate PDF"
+                    />
+                    <!-- Fallback for browsers that cannot embed PDFs -->
+                    <p class="cert-showcase-fallback">
+                      Your browser cannot display the PDF inline.
+                      <a href="assets/python-certificate.pdf" target="_blank" rel="noopener noreferrer">Open certificate&nbsp;&rarr;</a>
+                    </p>
+                  </object>
+                </div>
+                <div class="cert-showcase-footer">
+                  <a href="assets/python-certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-open-link">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    Open full certificate
+                  </a>
+                </div>
               </div>
             </div>
           </div>
