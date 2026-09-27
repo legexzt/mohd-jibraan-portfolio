@@ -12,7 +12,6 @@ import AiTools from './components/AiTools'
 import HireMe from './components/HireMe'
 import Certificates from './components/Certificates'
 import AskAI from './components/AskAI'
-import AiFab from './components/AiFab'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -39,7 +38,6 @@ export default function App() {
       <Cursor />
       {!loaded && <Preloader onDone={() => setLoaded(true)} />}
       <Nav />
-      <AiFab />
       <main>
         <Hero started={loaded} />
         <Marquee />

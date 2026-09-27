@@ -1,44 +1,49 @@
-/* ===== Fixed AI pill button — top-left, opens the AI chat drawer ===== */
+/* ===== AI pill button — lives in the nav (top-left), opens the AI chat drawer.
+   Styled to match the floating AI-tools aesthetic: dark glass + accent glow + gentle float. ===== */
 .ai-fab {
-  position: fixed;
-  top: 88px;
-  left: 4vw;
-  z-index: 950;
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 10px 18px 10px 14px;
+  margin-left: 14px;
+  padding: 8px 16px 8px 13px;
   border-radius: 999px;
   border: 1px solid rgba(200, 245, 66, 0.35);
-  background: rgba(13, 13, 13, 0.82);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 100%);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   color: var(--ink);
   font-family: 'Syne', sans-serif;
   font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
   cursor: pointer;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 18px rgba(200, 245, 66, 0.12);
-  transition: transform 0.25s var(--ease), box-shadow 0.25s, border-color 0.25s;
+  box-shadow: 0 8px 24px -8px rgba(200, 245, 66, 0.35), 0 0 16px rgba(200, 245, 66, 0.12);
+  animation: ai-fab-float 5s ease-in-out infinite;
+  will-change: transform;
+  transition: border-color 0.3s, box-shadow 0.3s;
   -webkit-tap-highlight-color: transparent;
+  vertical-align: middle;
 }
 
 .ai-fab-spark {
   color: var(--accent);
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1;
   animation: ai-fab-twinkle 2.6s ease-in-out infinite;
 }
 
 .ai-fab:hover {
-  transform: translateY(-2px);
   border-color: var(--accent);
-  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.55), 0 0 28px rgba(200, 245, 66, 0.3);
+  box-shadow: 0 10px 30px -8px rgba(200, 245, 66, 0.55), 0 0 26px rgba(200, 245, 66, 0.28);
 }
 
 .ai-fab:active {
-  transform: translateY(0) scale(0.97);
+  transform: scale(0.96);
+}
+
+@keyframes ai-fab-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 
 @keyframes ai-fab-twinkle {
@@ -46,16 +51,20 @@
   50% { opacity: 0.55; transform: scale(0.85); }
 }
 
+/* Left cluster: logo + AI pill stay together */
+.nav-left {
+  display: inline-flex;
+  align-items: center;
+}
+
 @media (max-width: 640px) {
   .ai-fab {
-    top: 78px;
-    left: 4vw;
-    padding: 9px 15px 9px 12px;
-    font-size: 0.78rem;
+    margin-left: 10px;
+    padding: 7px 13px 7px 11px;
+    font-size: 0.7rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ai-fab-spark { animation: none; }
-  .ai-fab { transition: none; }
+  .ai-fab, .ai-fab-spark { animation: none; }
 }

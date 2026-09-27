@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import useMagnetic from '../hooks/useMagnetic'
+import AiFab from './AiFab'
 import './Nav.css'
 
 const LINKS = [
@@ -49,7 +50,10 @@ export default function Nav() {
   return (
     <>
       <header className={`nav ${scrolled ? 'scrolled' : ''} ${open ? 'menu-open' : ''}`}>
-        <a href="#top" className="nav-logo magnetic" ref={logoRef}>MJ©</a>
+        <div className="nav-left">
+          <a href="#top" className="nav-logo magnetic" ref={logoRef}>MJ©</a>
+          <AiFab />
+        </div>
         <div className="nav-loc">
           <span>Hyderabad, IN</span>
           <span className="nav-dot">·</span>
