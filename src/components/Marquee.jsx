@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import './Marquee.css'
 
-const WORDS = ['WORDPRESS', 'BUG FIXING', 'ELEMENTOR', 'PHP / JS', 'RESPONSIVE', 'MAINTENANCE']
+const WORDS = ['WEB DEVELOPMENT', 'WEB APPS', 'AI TOOLS', 'AUTOMATION', 'SOFTWARE', 'RESPONSIVE']
 
 function Row({ reverse = false, outline = false, speedRef, words = WORDS, logo = false }) {
   const trackRef = useRef(null)

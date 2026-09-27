@@ -2,10 +2,10 @@ import { useState } from 'react'
 import './Services.css'
 
 const SERVICES = [
-  { id: '01', title: 'WordPress Bug Fixing', desc: 'PHP/JS errors, broken layouts, plugin conflicts — found, fixed, and kept fixed. Your site works the way it should.', tags: ['PHP', 'JavaScript', 'Debugging'] },
-  { id: '02', title: 'Elementor Repair', desc: 'Elementor layouts repaired and rebuilt — pixel-faithful, responsive, and clean. No more broken sections.', tags: ['Elementor', 'Page Builders'] },
-  { id: '03', title: 'Responsive Fixes', desc: 'Sites that break on mobile, fixed. Clean, working layouts on every screen size — phone, tablet, desktop.', tags: ['CSS', 'Mobile-First'] },
-  { id: '04', title: 'Site Maintenance', desc: 'Updates, backups, speed basics — your WordPress site stays healthy and fast while you focus on business.', tags: ['Updates', 'Backups', 'Speed'] },
+  { id: '01', title: 'Web Development', desc: 'Responsive websites built with modern stacks — fast, clean, and mobile-first. From landing pages to full sites.', tags: ['HTML/CSS', 'JavaScript', 'Responsive'] },
+  { id: '02', title: 'Web Apps & Software', desc: 'Full-stack web applications — frontend to backend, databases included. Real software that works.', tags: ['React', 'Node.js', 'Full-Stack'] },
+  { id: '03', title: 'AI Tools & Automation', desc: 'AI-powered workflows and automations that save hours — smart tools integrated into your site or business.', tags: ['AI Tools', 'Automation', 'Workflows'] },
+  { id: '04', title: 'Debugging & Maintenance', desc: 'Bugs found and fixed — PHP/JS errors, broken layouts, plugin conflicts. Your site stays healthy while you focus on business.', tags: ['Debugging', 'WordPress', 'Maintenance'] },
 ]
 
 export default function Services() {

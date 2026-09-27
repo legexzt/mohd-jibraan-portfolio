@@ -29,11 +29,12 @@ export default function Profile() {
         {/* Text + socials */}
         <div className="profile-info" data-reveal style={{ transitionDelay: '.15s' }}>
           <h3 className="profile-name">Mohd Jibraan</h3>
-          <p className="profile-role">WordPress Developer — Hyderabad, India</p>
+          <p className="profile-role">Web Developer — Hyderabad, India</p>
           <p className="profile-bio">
-            I fix and maintain WordPress sites — Elementor layouts, PHP/JS errors,
-            responsive fixes. Team Leader of legezt, building LezzFlow, selected
-            among the Top 50 in Smart India Hackathon 2026.
+            I build websites, web apps & AI-powered automations — responsive
+            sites, full-stack applications, smart workflows. Team Leader of
+            legezt, building LezzFlow, selected among the Top 50 in
+            Smart India Hackathon 2026.
           </p>
 
           <div className="profile-socials">

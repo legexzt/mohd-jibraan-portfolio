@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import './About.css'
 
 const STATEMENT =
-  "I'm Mohd Jibraan, a WordPress developer from Hyderabad. I fix and maintain WordPress sites — the bugs, the broken layouts, the little things that drive site owners crazy. Found, fixed, and kept fixed."
+  "I'm Mohd Jibraan, a web developer from Hyderabad. I build websites, web apps & AI-powered automations — responsive sites, full-stack applications, and smart workflows. Designed, built and shipped fast."
 
 export default function About() {
   // Split statement into words for the reveal animation
@@ -33,9 +33,9 @@ export default function About() {
 
         <div className="about-body" data-reveal style={{ transitionDelay: '.15s' }}>
           <p>
-            WordPress developer with a year of hands-on experience fixing
-            and maintaining real sites. I specialize in bug fixing, Elementor
-            repair, PHP/JS debugging and responsive fixes.
+            Web developer with a year of hands-on experience building and
+            fixing real sites. I build responsive websites and web apps, and
+            use AI tools and automation to design, build and ship faster.
           </p>
           <p>
             Team Leader of <em>legezt</em> — building LezzFlow, a hyperlocal
@@ -45,7 +45,7 @@ export default function About() {
           </p>
 
           <div className="about-skills">
-            {['WordPress', 'Elementor', 'PHP', 'JavaScript', 'CSS', 'Debugging', 'Responsive Design', 'Site Maintenance']
+            {['Web Development', 'JavaScript', 'React', 'Node.js', 'AI Tools', 'Automation', 'Debugging', 'Responsive Design']
               .map((s, i) => (
                 <span className="about-chip" key={s} style={{ animationDelay: `${i * 0.07}s` }}>{s}</span>
               ))}

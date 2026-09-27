@@ -3,7 +3,7 @@ import './AskAI.css'
 
 const PROFILE = {
   name: 'Mohd Jibraan',
-  role: 'WordPress Bug Fixing & Maintenance',
+  role: 'Web Developer — Websites, Web Apps & AI Automations',
   location: 'Hyderabad, India',
   email: 'mdjibjibran@gmail.com',
   linkedin: 'https://www.linkedin.com/in/mohd-jibraan/',
@@ -17,8 +17,8 @@ const KB = [
     reply: `Here are Mohd Jibraan's certificates:\n\n1. **Smart India Hackathon 2026** — Top 50 Finalist with Team legezt (his 6-member team)\n2. **Python with AI** — Internshala Trainings\n3. **Google Cloud GenAI Study Jams** — 5th Place, GDG on Campus\n4. **Talent Hunt** — built a robotic firefighter car (Lords Institute)\n5. **Sanketika** — Designing Lead (certificate + memento, Lords Institute)\n\nYou can see the actual certificate images in the Certificates section above.`,
   },
   {
-    keys: ['experience', 'work', 'job', 'skill', 'wordpress', 'elementor', 'service'],
-    reply: `Mohd Jibraan has **~1 year of hands-on experience** in:\n\n• **WordPress bug fixing** — PHP errors, JS/console errors, white screen, plugin conflicts\n• **Elementor** — layout repair, broken sections, responsive fixes\n• **Responsive fixes** — mobile/tablet layout issues\n• **Website maintenance** — updates, backups, speed & security basics\n\nHe's currently open to freelance bug-fixing and maintenance work.`,
+    keys: ['experience', 'work', 'job', 'skill', 'service', 'wordpress', 'elementor'],
+    reply: `Mohd Jibraan has **~1 year of hands-on experience** in:\n\n• **Web development** — responsive websites with modern stacks\n• **Web apps & software** — full-stack applications, frontend to backend\n• **AI tools & automation** — AI-powered workflows that design, build and ship faster\n• **Debugging & maintenance** — PHP/JS errors, broken layouts, WordPress fixes\n\nHe's currently open to freelance projects and internships.`,
   },
   {
     keys: ['education', 'study', 'college', 'degree', 'semester', 'lords', 'university'],
@@ -38,7 +38,7 @@ const KB = [
   },
   {
     keys: ['who', 'about', 'yourself', 'name', 'jibraan'],
-    reply: `**Mohd Jibraan** is a web developer from **Hyderabad, India**, specialising in **WordPress bug fixing & maintenance** (Elementor, PHP/JS errors, responsive fixes). He's a B.E. Computer Science student (5th sem) and Team Leader of "legezt" — Top 50 in SIH 2026 with LezzFlow.`,
+    reply: `**Mohd Jibraan** is a web developer from **Hyderabad, India** — he builds **websites, web apps & AI-powered automations** (responsive sites, full-stack applications, smart workflows). He's a B.E. Computer Science student (5th sem) and Team Leader of "legezt" — Top 50 in SIH 2026 with LezzFlow.`,
   },
   {
     keys: ['price', 'rate', 'cost', 'charge', 'fee'],

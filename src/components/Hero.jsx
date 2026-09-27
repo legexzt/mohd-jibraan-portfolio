@@ -57,9 +57,9 @@ export default function Hero({ started }) {
 
         <div className={`hero-sub ${started ? 'go' : ''}`}>
           <p className="hero-desc">
-            I'm <strong>Mohd Jibraan</strong> — I fix and maintain WordPress
-            sites: the bugs, the broken layouts, the little things that drive
-            you crazy. Based in <strong>Hyderabad, India</strong>.
+            I'm <strong>Mohd Jibraan</strong> — I build websites, web apps
+            & AI-powered automations: responsive sites, full-stack apps, and
+            smart workflows that ship fast. Based in <strong>Hyderabad, India</strong>.
           </p>
           <a href="#works" className="hero-cta magnetic" ref={ctaRef}>
             <span>See my work</span>
@@ -69,7 +69,7 @@ export default function Hero({ started }) {
 
         <div className={`hero-stats ${started ? 'go' : ''}`}>
           {[
-            ['1+', 'Year fixing WordPress'],
+            ['1+', 'Year building for the web'],
             ['Top 50', 'Smart India Hackathon 2026'],
             ['5th Sem', 'B.E. Computer Science'],
             ['6', 'Members led in Team legezt'],
