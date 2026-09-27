@@ -1,0 +1,338 @@
+.ai-tools {
+  position: relative;
+  overflow: clip;
+}
+
+/* Statement / Manifesto block */
+.ai-tools-statement {
+  position: relative;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 36px 40px;
+  margin-bottom: 56px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.ai-statement-glow {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 245, 66, 0.12), transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.ai-statement-text {
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1.68;
+  color: var(--ink);
+  font-weight: 400;
+  max-width: 900px;
+  margin-bottom: 24px;
+}
+
+.ai-statement-text strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.ai-statement-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ai-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  padding: 6px 14px;
+  border-radius: 100px;
+}
+
+.ai-tag i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+}
+
+/* Showcase arena */
+.ai-tools-showcase {
+  position: relative;
+  padding: 20px 0 10px;
+}
+
+.ai-ambient-glow {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 750px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(78, 140, 255, 0.08), rgba(200, 245, 66, 0.05), transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* Grid layout for 5 cards */
+.ai-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Tool card container */
+.ai-tool-card {
+  perspective: 1000px;
+}
+
+/* Floating inner container with GPU-accelerated CSS keyframes */
+.ai-card-float {
+  position: relative;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 100%);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 30px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  will-change: transform;
+  animation: floatTool var(--anim-duration, 5s) ease-in-out infinite;
+  animation-delay: var(--anim-delay, 0s);
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+@keyframes floatTool {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(0.6deg);
+  }
+}
+
+@media (hover: hover) {
+  .ai-tool-card:hover .ai-card-float {
+    border-color: var(--brand);
+    box-shadow: 0 16px 40px -10px var(--glow), 0 0 20px 0 var(--glow);
+    animation-play-state: paused;
+    transform: translateY(-16px) scale(1.02);
+  }
+}
+
+/* Icon pod with glow */
+.ai-icon-pod {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(12, 12, 12, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--brand);
+  margin-bottom: 22px;
+  flex-shrink: 0;
+  transition: transform 0.4s var(--ease), border-color 0.4s;
+}
+
+.ai-icon-aura {
+  position: absolute;
+  inset: -12px;
+  border-radius: inherit;
+  background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+  filter: blur(10px);
+  opacity: 0.7;
+  pointer-events: none;
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.ai-icon-glyph {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (hover: hover) {
+  .ai-tool-card:hover .ai-icon-pod {
+    transform: scale(1.08) rotate(-2deg);
+    border-color: var(--brand);
+  }
+  .ai-tool-card:hover .ai-icon-aura {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+.ai-card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  min-width: 0;
+}
+
+.ai-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 12px;
+}
+
+.ai-tool-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  word-break: break-word;
+}
+
+.ai-tool-maker {
+  font-size: 0.76rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ai-tool-role {
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--brand);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  align-self: flex-start;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+.ai-tool-desc {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-top: auto;
+  word-break: break-word;
+}
+
+/* Subtle gloss shine */
+.ai-card-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Responsive queries */
+@media (max-width: 1200px) {
+  .ai-tools-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ai-tools-statement {
+    padding: 24px 20px;
+    margin-bottom: 36px;
+    border-radius: 16px;
+  }
+  .ai-statement-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  .ai-tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .ai-card-float {
+    padding: 24px 18px;
+    border-radius: 18px;
+  }
+  .ai-icon-pod {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+  }
+  .ai-icon-pod svg {
+    width: 28px;
+    height: 28px;
+  }
+  .ai-tool-name {
+    font-size: 1.2rem;
+  }
+  .ai-tool-desc {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ai-tools-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .ai-card-float {
+    padding: 20px 18px;
+    animation: floatToolMobile var(--anim-duration, 5s) ease-in-out infinite;
+    animation-delay: var(--anim-delay, 0s);
+  }
+  @keyframes floatToolMobile {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-7px); }
+  }
+  .ai-icon-pod {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+  }
+  .ai-icon-pod svg {
+    width: 26px;
+    height: 26px;
+  }
+  .ai-tool-name {
+    font-size: 1.15rem;
+  }
+  .ai-tool-role {
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+  }
+  .ai-tool-desc {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+}

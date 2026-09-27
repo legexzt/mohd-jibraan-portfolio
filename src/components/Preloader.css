@@ -4,9 +4,13 @@
   background: #0c0c0c;
   display: flex; align-items: center; justify-content: center;
   clip-path: inset(0 0 0 0);
-  transition: clip-path .85s var(--ease2);
+  transition: clip-path .85s var(--ease2), opacity .85s var(--ease2);
 }
-.preloader.leaving { clip-path: inset(0 0 100% 0); }
+.preloader.leaving {
+  clip-path: inset(0 0 100% 0);
+  opacity: 0;
+  pointer-events: none;
+}
 
 .preloader-center { text-align: center; }
 
@@ -51,4 +55,38 @@
   height: 100%;
   background: var(--accent);
   transition: width .2s linear;
+}
+
+@media (max-width: 768px) {
+  .preloader-name {
+    font-size: clamp(1.5rem, 7vw, 2.6rem);
+  }
+  .preloader-sub {
+    font-size: .65rem;
+    letter-spacing: 2px;
+  }
+  .preloader-count {
+    font-size: clamp(2.4rem, 10vw, 4rem);
+    right: 5vw;
+    bottom: 3vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .preloader-center {
+    padding: 0 18px;
+  }
+  .preloader-name {
+    font-size: clamp(1.3rem, 6.5vw, 2rem);
+  }
+  .preloader-sub {
+    font-size: .6rem;
+    letter-spacing: 1.5px;
+    margin-top: 10px;
+  }
+  .preloader-count {
+    font-size: clamp(2rem, 9vw, 3rem);
+    right: 5vw;
+    bottom: 2.5vh;
+  }
 }

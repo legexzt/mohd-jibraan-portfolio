@@ -8,8 +8,11 @@ import About from './components/About'
 import Profile from './components/Profile'
 import Works from './components/Works'
 import Services from './components/Services'
+import AiTools from './components/AiTools'
+import HireMe from './components/HireMe'
 import Certificates from './components/Certificates'
 import AskAI from './components/AskAI'
+import AiFab from './components/AiFab'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -25,10 +28,10 @@ export default function App() {
           io.unobserve(e.target)
         }
       })
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' })
+    }, { threshold: 0.05, rootMargin: '0px 0px -10px 0px' })
     els.forEach((el) => io.observe(el))
     return () => io.disconnect()
-  }, [])
+  }, [loaded])
 
   return (
     <>
@@ -36,6 +39,7 @@ export default function App() {
       <Cursor />
       {!loaded && <Preloader onDone={() => setLoaded(true)} />}
       <Nav />
+      <AiFab />
       <main>
         <Hero started={loaded} />
         <Marquee />
@@ -43,10 +47,12 @@ export default function App() {
         <Profile />
         <Works />
         <Services />
+        <AiTools />
+        <HireMe />
         <Certificates />
-        <AskAI />
         <Footer />
       </main>
+      <AskAI />
     </>
   )
 }

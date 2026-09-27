@@ -74,6 +74,7 @@ function renderMarkdown(text) {
 }
 
 export default function AskAI() {
+  const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([
     {
       from: 'ai',
@@ -83,10 +84,63 @@ export default function AskAI() {
   const [input, setInput] = useState('')
   const [typing, setTyping] = useState(false)
   const bottomRef = useRef(null)
+  const inputRef = useRef(null)
 
+  // Listen for open/close/toggle events or initial URL hash
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages, typing])
+    const handleOpen = () => setIsOpen(true)
+    const handleClose = () => setIsOpen(false)
+    const handleToggle = () => setIsOpen((prev) => !prev)
+
+    window.addEventListener('open-ai-drawer', handleOpen)
+    window.addEventListener('close-ai-drawer', handleClose)
+    window.addEventListener('toggle-ai-drawer', handleToggle)
+
+    if (window.location.hash === '#ai' || window.location.hash === '#ask-ai') {
+      setIsOpen(true)
+    }
+
+    return () => {
+      window.removeEventListener('open-ai-drawer', handleOpen)
+      window.removeEventListener('close-ai-drawer', handleClose)
+      window.removeEventListener('toggle-ai-drawer', handleToggle)
+    }
+  }, [])
+
+  // Close drawer on Escape key
+  useEffect(() => {
+    if (!isOpen) return
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [isOpen])
+
+  // Manage body scroll and desktop focus
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+      if (window.innerWidth > 768) {
+        const timer = setTimeout(() => inputRef.current?.focus(), 320)
+        return () => clearTimeout(timer)
+      }
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isOpen])
+
+  // Scroll to latest message
+  useEffect(() => {
+    if (isOpen) {
+      bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [messages, typing, isOpen])
 
   const send = (text) => {
     const q = (text ?? input).trim()
@@ -104,20 +158,52 @@ export default function AskAI() {
   }
 
   return (
-    <section className="askai" id="ai">
-      <div className="sec-label" data-reveal><i />AI ASSISTANT</div>
-      <h2 className="sec-title" data-reveal>Ask AI <em>about me</em></h2>
-      <p className="askai-sub" data-reveal>
-        Curious about my certificates, experience or projects? Ask away — the assistant knows me well.
-      </p>
+    <>
+      {/* Fixed AI Trigger Button below Nav at Top-Left */}
+      <button
+        className={`askai-trigger ${isOpen ? 'active' : ''}`}
+        onClick={() => setIsOpen((prev) => !prev)}
+        aria-label="Open AI Assistant"
+        aria-expanded={isOpen}
+      >
+        <span className="askai-trigger-dot" />
+        <span className="askai-trigger-text">AI</span>
+      </button>
 
-      <div className="askai-chat" data-reveal>
-        <div className="askai-head">
-          <img src="/profile.jpg" alt="Mohd Jibraan" className="askai-avatar" />
-          <div>
-            <div className="askai-name">Jibraan's AI</div>
-            <div className="askai-status"><i />online — knows his certificates, experience & projects</div>
+      {/* Backdrop Overlay */}
+      <div
+        className={`askai-backdrop ${isOpen ? 'open' : ''}`}
+        onClick={() => setIsOpen(false)}
+        aria-hidden="true"
+      />
+
+      {/* Slide-in Drawer */}
+      <aside
+        className={`askai-drawer ${isOpen ? 'open' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mohd Jibraan AI Assistant"
+      >
+        <div className="askai-drawer-head">
+          <div className="askai-head-info">
+            <img src="/profile.jpg" alt="Mohd Jibraan" className="askai-avatar" />
+            <div>
+              <div className="askai-name">Jibraan's AI</div>
+              <div className="askai-status">
+                <i />online — knows certificates, experience & projects
+              </div>
+            </div>
           </div>
+          <button
+            className="askai-close-btn"
+            onClick={() => setIsOpen(false)}
+            aria-label="Close AI Assistant"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
         </div>
 
         <div className="askai-messages">
@@ -153,6 +239,7 @@ export default function AskAI() {
           onSubmit={(e) => { e.preventDefault(); send() }}
         >
           <input
+            ref={inputRef}
             className="askai-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -161,7 +248,7 @@ export default function AskAI() {
           />
           <button type="submit" className="askai-send" aria-label="Send">↑</button>
         </form>
-      </div>
-    </section>
+      </aside>
+    </>
   )
 }

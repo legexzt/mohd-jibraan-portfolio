@@ -34,6 +34,7 @@ export default function Certificates() {
 
   // Spotlight follows mouse inside each card
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: none), (pointer: coarse)').matches) return
     const cards = document.querySelectorAll('.cert-card')
     const handlers = []
     cards.forEach((card) => {
@@ -94,7 +95,7 @@ export default function Certificates() {
 
       {lightbox !== null && (
         <div className="cert-lightbox" onClick={() => setLightbox(null)}>
-          <button className="cert-lb-close" aria-label="Close">✕</button>
+          <button className="cert-lb-close" aria-label="Close" onClick={() => setLightbox(null)}>✕</button>
           <button
             className="cert-lb-prev"
             aria-label="Previous"

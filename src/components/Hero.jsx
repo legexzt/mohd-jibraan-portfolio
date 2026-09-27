@@ -3,23 +3,25 @@ import useMagnetic from '../hooks/useMagnetic'
 import './Hero.css'
 
 export default function Hero({ started }) {
-  const [par, setPar] = useState({ x: 0, y: 0 })
+  const heroRef = useRef(null)
   const ctaRef = useMagnetic(0.4)
   const rafRef = useRef(null)
 
-  // Subtle mouse parallax
+  // Subtle mouse parallax via CSS variable — avoids re-rendering the Hero tree
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: none), (pointer: coarse)').matches) return
+    const el = heroRef.current
+    if (!el) return
+
     const onMove = (e) => {
       if (rafRef.current) return
       rafRef.current = requestAnimationFrame(() => {
-        setPar({
-          x: (e.clientX / innerWidth - 0.5) * 2,
-          y: (e.clientY / innerHeight - 0.5) * 2,
-        })
+        const px = (e.clientX / window.innerWidth - 0.5) * 2
+        el.style.setProperty('--par-x', px.toFixed(3))
         rafRef.current = null
       })
     }
-    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mousemove', onMove, { passive: true })
     return () => {
       window.removeEventListener('mousemove', onMove)
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
@@ -29,7 +31,7 @@ export default function Hero({ started }) {
   const lines = ['MOHD', 'JIBRAAN']
 
   return (
-    <section className="hero" id="top">
+    <section className="hero" id="top" ref={heroRef}>
       <div className="hero-glow hero-glow-1" />
       <div className="hero-glow hero-glow-2" />
 
@@ -46,7 +48,7 @@ export default function Hero({ started }) {
                 className={`hero-line-inner ${started ? 'go' : ''} ${li === 1 ? 'outline' : ''} ${li === 2 ? 'accent' : ''}`}
                 style={{
                   transitionDelay: `${0.05 + li * 0.12}s`,
-                  transform: `translateY(${started ? 0 : 110}%) translateX(${par.x * (li + 1) * 10}px)`,
+                  transform: `translateY(${started ? 0 : 110}%) translateX(calc(var(--par-x, 0) * ${(li + 1) * 10}px))`,
                 }}
               >
                 {line}

@@ -1,32 +1,19 @@
-import { useEffect, useRef } from 'react'
 import './Marquee.css'
 
 const WORDS = ['WEB DEVELOPMENT', 'WEB APPS', 'AI TOOLS', 'AUTOMATION', 'SOFTWARE', 'RESPONSIVE']
 
-function Row({ reverse = false, outline = false, speedRef, words = WORDS, logo = false }) {
-  const trackRef = useRef(null)
+function getItems(words, minCount = 6) {
+  const count = words.length || 1
+  const multiplier = Math.max(1, Math.ceil(minCount / count))
+  const half = Array(multiplier).fill(words).flat()
+  return [...half, ...half]
+}
 
-  useEffect(() => {
-    const track = trackRef.current
-    if (!track) return
-    let pos = reverse ? -50 : 0
-    let raf
-    const loop = () => {
-      const speed = speedRef.current * (reverse ? -1 : 1)
-      pos -= speed
-      if (pos <= -50) pos += 50
-      if (pos > 0) pos -= 50
-      track.style.transform = `translateX(${pos}%)`
-      raf = requestAnimationFrame(loop)
-    }
-    raf = requestAnimationFrame(loop)
-    return () => cancelAnimationFrame(raf)
-  }, [reverse, speedRef])
-
-  const items = [...words, ...words]
+function Row({ reverse = false, outline = false, words = WORDS, logo = false }) {
+  const items = getItems(words, 6)
   return (
     <div className="marquee-row">
-      <div className="marquee-track" ref={trackRef}>
+      <div className={`marquee-track ${reverse ? 'reverse' : 'normal'}`}>
         {items.map((w, i) => (
           <span key={i} className={`marquee-word ${outline ? 'outline' : ''}`}>
             {logo ? (
@@ -45,14 +32,12 @@ function Row({ reverse = false, outline = false, speedRef, words = WORDS, logo =
 }
 
 export default function Marquee() {
-  const speedRef = useRef(0.05)
-
   return (
     <section className="marquee" aria-hidden="true">
-      <Row speedRef={speedRef} />
-      <Row reverse outline speedRef={speedRef} />
-      <Row speedRef={speedRef} words={['legezt']} />
-      <Row reverse speedRef={speedRef} words={['']} logo />
+      <Row />
+      <Row reverse outline />
+      <Row words={['legezt']} />
+      <Row reverse words={['']} logo />
     </section>
   )
 }

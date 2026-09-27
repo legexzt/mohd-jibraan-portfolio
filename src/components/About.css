@@ -1,4 +1,7 @@
-.about { position: relative; }
+.about {
+  position: relative;
+  overflow-x: clip;
+}
 
 .about-statement {
   font-family: 'Syne', sans-serif;
@@ -41,7 +44,9 @@
   display: flex; align-items: center; justify-content: center;
   transition: transform .6s var(--ease);
 }
-.about-portrait:hover .about-portrait-frame { transform: rotate(-2deg) scale(1.02); }
+@media (hover: hover) {
+  .about-portrait:hover .about-portrait-frame { transform: rotate(-2deg) scale(1.02); }
+}
 .about-portrait-mono {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
@@ -85,14 +90,52 @@
   animation: chip-in .6s var(--ease) forwards;
   transition: color .3s, border-color .3s, background .3s;
 }
-.about-chip:hover {
-  color: #0c0c0c;
-  background: var(--accent);
-  border-color: var(--accent);
+@media (hover: hover) {
+  .about-chip:hover {
+    color: #0c0c0c;
+    background: var(--accent);
+    border-color: var(--accent);
+  }
 }
 @keyframes chip-in { to { opacity: 1; transform: none; } }
 
 @media (max-width: 900px) {
-  .about-grid { grid-template-columns: 1fr; gap: 48px; }
-  .about-portrait { max-width: 320px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-portrait { max-width: 300px; width: 100%; margin: 0 auto; }
+  .about-portrait-tag { text-align: center; }
+}
+
+@media (max-width: 768px) {
+  .about-statement {
+    font-size: clamp(1.25rem, 5vw, 1.8rem);
+    margin-bottom: 6vh;
+    line-height: 1.4;
+  }
+  .about-portrait-tag { letter-spacing: 2px; }
+}
+
+@media (max-width: 480px) {
+  .about-statement {
+    font-size: clamp(1.1rem, 5.2vw, 1.45rem);
+    margin-bottom: 5vh;
+    line-height: 1.45;
+  }
+  .about-portrait { max-width: 260px; }
+  .about-portrait-tag {
+    font-size: .68rem;
+    letter-spacing: 1.2px;
+  }
+  .about-body p {
+    font-size: .92rem;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+  .about-skills {
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .about-chip {
+    padding: 7px 14px;
+    font-size: .78rem;
+  }
 }

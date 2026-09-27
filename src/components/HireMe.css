@@ -1,0 +1,379 @@
+.hire {
+  position: relative;
+  overflow: clip;
+}
+
+.hire-intro {
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 800px;
+  margin-bottom: 50px;
+}
+
+/* Grid of 4 offerings */
+.hire-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.hire-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), background 0.4s var(--ease);
+  overflow: hidden;
+}
+
+@media (hover: hover) {
+  .hire-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(200, 245, 66, 0.45);
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .hire-card:hover .hire-card-icon {
+    transform: scale(1.1);
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(200, 245, 66, 0.08);
+  }
+}
+
+.hire-card-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.hire-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  transition: transform 0.4s var(--ease), color 0.4s, border-color 0.4s, background 0.4s;
+  flex-shrink: 0;
+}
+
+.hire-card-tag {
+  font-size: 0.76rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(200, 245, 66, 0.06);
+  border: 1px solid rgba(200, 245, 66, 0.2);
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+.hire-card-num {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-family: 'Space Grotesk', monospace;
+}
+
+.hire-card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+  color: var(--ink);
+}
+
+.hire-card-desc {
+  font-size: 0.92rem;
+  line-height: 1.62;
+  color: var(--muted);
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+.hire-card-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.hire-card-bullets li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+
+.hire-card-bullets li i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* Pricing Note Strip */
+.hire-pricing-note {
+  margin-bottom: 32px;
+}
+
+.hire-pricing-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(236, 233, 226, 0.22);
+  border-radius: 14px;
+  padding: 18px 24px;
+}
+
+.hire-pricing-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.hire-pricing-text {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.hire-pricing-text strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Internship highlight strip */
+.hire-internship-strip {
+  position: relative;
+  background: linear-gradient(135deg, rgba(200, 245, 66, 0.08) 0%, rgba(200, 245, 66, 0.02) 100%);
+  border: 1px solid rgba(200, 245, 66, 0.35);
+  border-radius: 18px;
+  padding: 30px 32px;
+  margin-bottom: 48px;
+  overflow: hidden;
+}
+
+.internship-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(200, 245, 66, 0.12);
+  border: 1px solid rgba(200, 245, 66, 0.3);
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 14px;
+}
+
+.internship-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 1.8s infinite;
+}
+
+.internship-quote {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.25rem, 2.8vw, 1.85rem);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.internship-sub {
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 650px;
+}
+
+/* BIG WhatsApp CTA Button */
+.hire-cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.hire-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 36px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #ffffff;
+  font-family: 'Syne', sans-serif;
+  text-decoration: none;
+  box-shadow: 0 10px 35px -8px rgba(37, 211, 102, 0.45);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), filter 0.35s;
+  max-width: 100%;
+}
+
+.hire-wa-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.35s var(--ease);
+}
+
+.hire-wa-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.hire-wa-main {
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.hire-wa-sub {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.hire-wa-arrow {
+  font-size: 1.4rem;
+  display: inline-block;
+  transition: transform 0.35s var(--ease);
+  color: #ffffff;
+}
+
+@media (hover: hover) {
+  .hire-whatsapp-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 16px 45px -6px rgba(37, 211, 102, 0.6);
+    filter: brightness(1.06);
+  }
+  .hire-whatsapp-btn:hover .hire-wa-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+  .hire-whatsapp-btn:hover .hire-wa-arrow {
+    transform: translate(4px, -4px);
+  }
+}
+
+/* Mobile & Tablet queries */
+@media (max-width: 768px) {
+  .hire-intro {
+    font-size: 1rem;
+    margin-bottom: 36px;
+  }
+  .hire-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .hire-card {
+    padding: 26px 20px;
+    border-radius: 16px;
+  }
+  .hire-pricing-inner {
+    padding: 14px 18px;
+  }
+  .hire-pricing-text {
+    font-size: 0.86rem;
+  }
+  .hire-internship-strip {
+    padding: 24px 20px;
+    border-radius: 16px;
+    margin-bottom: 36px;
+  }
+  .hire-whatsapp-btn {
+    padding: 16px 24px;
+    gap: 14px;
+    width: 100%;
+    justify-content: center;
+  }
+  .hire-wa-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .hire-wa-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hire-card-top {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .hire-card-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+  }
+  .hire-card-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+  .hire-card-tag {
+    font-size: 0.68rem;
+    padding: 3px 8px;
+  }
+  .hire-card-title {
+    font-size: 1.18rem;
+    margin-bottom: 10px;
+  }
+  .hire-card-desc {
+    font-size: 0.86rem;
+    margin-bottom: 18px;
+  }
+  .hire-card-bullets li {
+    font-size: 0.78rem;
+  }
+  .hire-internship-strip {
+    padding: 20px 16px;
+  }
+  .internship-quote {
+    font-size: 1.15rem;
+  }
+  .internship-sub {
+    font-size: 0.82rem;
+  }
+  .hire-whatsapp-btn {
+    padding: 14px 18px;
+    border-radius: 20px;
+  }
+  .hire-wa-main {
+    font-size: 1.05rem;
+  }
+  .hire-wa-sub {
+    font-size: 0.72rem;
+  }
+  .hire-wa-arrow {
+    display: none;
+  }
+}

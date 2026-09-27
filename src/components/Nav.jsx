@@ -7,6 +7,8 @@ const LINKS = [
   { label: 'Profile', href: '#profile' },
   { label: 'Works', href: '#works' },
   { label: 'Services', href: '#services' },
+  { label: 'AI Tools', href: '#ai-tools' },
+  { label: 'Hire Me', href: '#hire' },
   { label: 'Certificates', href: '#certificates' },
   { label: 'Ask AI', href: '#ai' },
   { label: 'Contact', href: '#contact' },
@@ -72,7 +74,13 @@ export default function Nav() {
                 href={l.href}
                 className="menu-link"
                 style={{ transitionDelay: open ? `${0.12 + i * 0.07}s` : '0s' }}
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  setOpen(false)
+                  if (l.label === 'Ask AI') {
+                    e.preventDefault()
+                    window.dispatchEvent(new CustomEvent('open-ai-drawer'))
+                  }
+                }}
               >
                 <span className="menu-link-num">0{i + 1}</span>
                 <span className="menu-link-text">{l.label}</span>

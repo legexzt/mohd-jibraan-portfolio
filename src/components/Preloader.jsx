@@ -7,6 +7,7 @@ export default function Preloader({ onDone }) {
 
   useEffect(() => {
     let raf
+    let doneTimer
     const start = performance.now()
     const DURATION = 1700
 
@@ -14,14 +15,25 @@ export default function Preloader({ onDone }) {
       const p = Math.min(1, (now - start) / DURATION)
       const eased = 1 - Math.pow(1 - p, 3)
       setCount(Math.round(eased * 100))
-      if (p < 1) raf = requestAnimationFrame(tick)
-      else {
+      if (p < 1) {
+        raf = requestAnimationFrame(tick)
+      } else {
         setLeaving(true)
-        setTimeout(onDone, 850)
+        doneTimer = setTimeout(onDone, 850)
       }
     }
     raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+
+    const fallbackTimer = setTimeout(() => {
+      setLeaving(true)
+      doneTimer = setTimeout(onDone, 850)
+    }, DURATION + 500)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      if (doneTimer) clearTimeout(doneTimer)
+      clearTimeout(fallbackTimer)
+    }
   }, [onDone])
 
   return (
