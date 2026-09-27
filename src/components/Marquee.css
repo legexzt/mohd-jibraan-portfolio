@@ -1,0 +1,35 @@
+.marquee {
+  padding: 6vh 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.marquee-row {
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 12px 0;
+}
+.marquee-track {
+  display: inline-flex;
+  will-change: transform;
+}
+.marquee-word {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.2rem, 6vw, 4.6rem);
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  padding: 0 24px;
+  display: inline-flex; align-items: center; gap: 24px;
+}
+.marquee-word.outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(236, 233, 226, .45);
+}
+.marquee-star {
+  font-style: normal;
+  font-size: .5em;
+  color: var(--accent);
+  animation: spin 5s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
