@@ -25,7 +25,7 @@ export default function About() {
       <div className="about-grid">
         <div className="about-portrait" data-reveal>
           <div className="about-portrait-frame">
-            <span className="about-portrait-mono">RC</span>
+            <span className="about-portrait-mono">MJ</span>
             <div className="about-portrait-scan" />
           </div>
           <div className="about-portrait-tag">MOHD JIBRAAN — HYDERABAD, INDIA</div>

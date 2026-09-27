@@ -30,6 +30,7 @@ export default function Nav() {
       if (clockRef.current) {
         clockRef.current.textContent = new Date().toLocaleTimeString('en-GB', {
           hour: '2-digit', minute: '2-digit', second: '2-digit',
+          timeZone: 'Asia/Kolkata',
         })
       }
     }
@@ -48,7 +49,7 @@ export default function Nav() {
       <header className={`nav ${scrolled ? 'scrolled' : ''} ${open ? 'menu-open' : ''}`}>
         <a href="#top" className="nav-logo magnetic" ref={logoRef}>MJ©</a>
         <div className="nav-loc">
-          <span>Paris, FR</span>
+          <span>Hyderabad, IN</span>
           <span className="nav-dot">·</span>
           <span ref={clockRef} />
         </div>

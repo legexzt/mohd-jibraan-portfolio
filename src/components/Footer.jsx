@@ -65,7 +65,7 @@ export default function Footer() {
 
         <div className="footer-meta">
           <span>©2026 Mohd Jibraan</span>
-          <span>Paris — 48.8566° N, 2.3522° E</span>
+          <span>Hyderabad — 17.3850° N, 78.4867° E</span>
         </div>
 
         <button className="footer-top magnetic" ref={topRef} onClick={toTop} aria-label="Back to top">
