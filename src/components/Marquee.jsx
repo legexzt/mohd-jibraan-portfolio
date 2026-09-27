@@ -3,7 +3,7 @@ import './Marquee.css'
 
 const WORDS = ['WORDPRESS', 'BUG FIXING', 'ELEMENTOR', 'PHP / JS', 'RESPONSIVE', 'MAINTENANCE']
 
-function Row({ reverse = false, outline = false, speedRef }) {
+function Row({ reverse = false, outline = false, speedRef, words = WORDS, logo = false }) {
   const trackRef = useRef(null)
 
   useEffect(() => {
@@ -23,13 +23,20 @@ function Row({ reverse = false, outline = false, speedRef }) {
     return () => cancelAnimationFrame(raf)
   }, [reverse, speedRef])
 
-  const items = [...WORDS, ...WORDS]
+  const items = [...words, ...words]
   return (
     <div className="marquee-row">
       <div className="marquee-track" ref={trackRef}>
         {items.map((w, i) => (
           <span key={i} className={`marquee-word ${outline ? 'outline' : ''}`}>
-            {w} <i className="marquee-star">✦</i>
+            {logo ? (
+              <span className="lezzflow-logo">
+                <span className="lezzflow-lezz">lezz</span><span className="lezzflow-flow">flow</span>
+              </span>
+            ) : (
+              w
+            )}
+            <i className="marquee-star">✦</i>
           </span>
         ))}
       </div>
@@ -44,6 +51,8 @@ export default function Marquee() {
     <section className="marquee" aria-hidden="true">
       <Row speedRef={speedRef} />
       <Row reverse outline speedRef={speedRef} />
+      <Row speedRef={speedRef} words={['legezt']} />
+      <Row reverse speedRef={speedRef} words={['']} logo />
     </section>
   )
 }

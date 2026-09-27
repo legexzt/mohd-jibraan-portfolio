@@ -2,6 +2,10 @@ import './Works.css'
 
 const PROJECTS = [
   { id: '01', title: 'LEZZFLOW', cat: 'Hyperlocal Commerce — SIH 2026 Top 50', year: '2026', c1: '#c8f542', c2: '#1a2605', span: 'wide', url: 'https://info.legezt.in', live: true },
+  { id: '02', title: 'LEZZFLOW BLACK', cat: 'Premium 3D Marketing Site', year: '2026', c1: '#4da6ff', c2: '#0a1626', span: '', url: 'https://lezzflow-black.vercel.app', live: true },
+  { id: '03', title: 'LAPTOP CHATBOT', cat: 'LLM Recommendation Chatbot', year: '2025', c1: '#f5a623', c2: '#241a05', span: '', url: 'https://github.com/legexzt/Laptop_Recommendation_AI_Chatbot', live: false },
+  { id: '04', title: 'PHISHING DETECTION', cat: 'ML Website Classification', year: '2025', c1: '#ff6b6b', c2: '#260a0a', span: '', url: 'https://github.com/legexzt/Phishing_Website_Detection_Classification', live: false },
+  { id: '05', title: 'COST PREDICTION', cat: 'ML Interior Design Regression', year: '2025', c1: '#b48cf2', c2: '#170a26', span: '', url: 'https://github.com/legexzt/Interior_Design_Cost_Prediction_Regression', live: false },
 ]
 
 export default function Works() {

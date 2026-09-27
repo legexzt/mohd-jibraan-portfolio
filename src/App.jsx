@@ -9,6 +9,7 @@ import Profile from './components/Profile'
 import Works from './components/Works'
 import Services from './components/Services'
 import Certificates from './components/Certificates'
+import AskAI from './components/AskAI'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -43,6 +44,7 @@ export default function App() {
         <Works />
         <Services />
         <Certificates />
+        <AskAI />
         <Footer />
       </main>
     </>

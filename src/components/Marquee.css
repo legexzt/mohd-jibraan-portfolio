@@ -33,3 +33,13 @@
   animation: spin 5s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* LezzFlow two-color logo inside marquee */
+.lezzflow-logo {
+  display: inline-flex;
+  align-items: baseline;
+  text-transform: lowercase;
+  letter-spacing: -.03em;
+}
+.lezzflow-lezz { color: #ffffff; }
+.lezzflow-flow { color: #4da6ff; }

@@ -71,7 +71,7 @@ export default function Hero({ started }) {
           {[
             ['1+', 'Year fixing WordPress'],
             ['Top 50', 'Smart India Hackathon 2026'],
-            ['8.56', 'CGPA — B.E. CSE'],
+            ['5th Sem', 'B.E. Computer Science'],
             ['6', 'Members led in Team legezt'],
           ].map(([num, label], i) => (
             <div className="hero-stat" key={label} style={{ transitionDelay: `${0.5 + i * 0.1}s` }}>

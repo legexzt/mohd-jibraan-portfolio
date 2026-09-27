@@ -1,45 +1,37 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './Certificates.css'
 
 const CERTS = [
   {
-    icon: '◆',
+    src: '/certs/cert-sih-internal.webp',
     title: 'Smart India Hackathon 2026',
     org: 'Top 50 Finalist — Team legezt',
-    year: '2026',
-    code: 'SIH-2026-TOP50',
   },
   {
-    icon: '▲',
+    src: '/certs/cert-python.webp',
     title: 'Python with AI',
     org: 'Internshala Trainings',
-    year: '',
-    code: 'INTERNSHALA',
   },
   {
-    icon: '●',
+    src: '/certs/cert-gdg-winterbreak.webp',
     title: 'Google Cloud GenAI Study Jams',
     org: '5th Place — GDG on Campus',
-    year: '2025',
-    code: 'GDG-GENAI',
   },
   {
-    icon: '■',
+    src: '/certs/cert-talent-hunt.webp',
     title: 'Talent Hunt — Robotics',
     org: 'Robotic Firefighter Car — Lords Institute',
-    year: '',
-    code: 'TALENT-HUNT',
   },
   {
-    icon: '✦',
+    src: '/certs/cert-sanketika.webp',
     title: 'Sanketika — Designing Lead',
     org: 'Certificate + Memento — Lords Institute',
-    year: '',
-    code: 'SANKETIKA-LEAD',
   },
 ]
 
 export default function Certificates() {
+  const [lightbox, setLightbox] = useState(null)
+
   // Spotlight follows mouse inside each card
   useEffect(() => {
     const cards = document.querySelectorAll('.cert-card')
@@ -56,29 +48,72 @@ export default function Certificates() {
     return () => handlers.forEach(([c, fn]) => c.removeEventListener('mousemove', fn))
   }, [])
 
+  // Keyboard nav for lightbox
+  useEffect(() => {
+    if (lightbox === null) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') setLightbox(null)
+      if (e.key === 'ArrowRight') setLightbox((lightbox + 1) % CERTS.length)
+      if (e.key === 'ArrowLeft') setLightbox((lightbox - 1 + CERTS.length) % CERTS.length)
+    }
+    window.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [lightbox])
+
   return (
     <section className="certs" id="certificates">
       <div className="sec-label" data-reveal><i />CREDENTIALS</div>
-      <h2 className="sec-title" data-reveal>Certificates & <em>badges</em></h2>
+      <h2 className="sec-title" data-reveal>Certificates & <em>achievements</em></h2>
+      <p className="certs-hint" data-reveal>Click any certificate to view it full-size</p>
 
       <div className="certs-grid">
         {CERTS.map((c, i) => (
-          <div className="cert-card" key={c.code} data-reveal style={{ transitionDelay: `${(i % 3) * 0.1}s` }}>
+          <button
+            className="cert-card cert-photo-card"
+            key={c.src}
+            data-reveal
+            style={{ transitionDelay: `${(i % 3) * 0.1}s` }}
+            onClick={() => setLightbox(i)}
+            aria-label={`View ${c.title}`}
+          >
             <div className="cert-spotlight" />
-            <div className="cert-top">
-              <span className="cert-icon">{c.icon}</span>
-              {c.year && <span className="cert-year">{c.year}</span>}
+            <div className="cert-photo-wrap">
+              <img src={c.src} alt={c.title} loading="lazy" />
+              <span className="cert-zoom">⤢</span>
             </div>
             <h3 className="cert-title">{c.title}</h3>
             <p className="cert-org">{c.org}</p>
-            <div className="cert-foot">
-              <span className="cert-code">{c.code}</span>
-              <span className="cert-verify">VERIFIED ✓</span>
-            </div>
             <div className="cert-shine" />
-          </div>
+          </button>
         ))}
       </div>
+
+      {lightbox !== null && (
+        <div className="cert-lightbox" onClick={() => setLightbox(null)}>
+          <button className="cert-lb-close" aria-label="Close">✕</button>
+          <button
+            className="cert-lb-prev"
+            aria-label="Previous"
+            onClick={(e) => { e.stopPropagation(); setLightbox((lightbox - 1 + CERTS.length) % CERTS.length) }}
+          >‹</button>
+          <figure className="cert-lb-figure" onClick={(e) => e.stopPropagation()}>
+            <img src={CERTS[lightbox].src} alt={CERTS[lightbox].title} />
+            <figcaption>
+              <strong>{CERTS[lightbox].title}</strong>
+              <span>{CERTS[lightbox].org}</span>
+            </figcaption>
+          </figure>
+          <button
+            className="cert-lb-next"
+            aria-label="Next"
+            onClick={(e) => { e.stopPropagation(); setLightbox((lightbox + 1) % CERTS.length) }}
+          >›</button>
+        </div>
+      )}
     </section>
   )
 }
