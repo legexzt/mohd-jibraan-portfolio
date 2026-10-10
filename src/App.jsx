@@ -11,6 +11,7 @@ import Services from './components/Services'
 import AiTools from './components/AiTools'
 import HireMe from './components/HireMe'
 import Certificates from './components/Certificates'
+import Publications from './components/Publications'
 import AskAI from './components/AskAI'
 import Footer from './components/Footer'
 
@@ -48,6 +49,7 @@ export default function App() {
         <AiTools />
         <HireMe />
         <Certificates />
+        <Publications />
         <Footer />
       </main>
       <AskAI />

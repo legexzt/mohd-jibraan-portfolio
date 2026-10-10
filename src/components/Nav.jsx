@@ -11,6 +11,7 @@ const LINKS = [
   { label: 'AI Tools', href: '#ai-tools' },
   { label: 'Hire Me', href: '#hire' },
   { label: 'Certificates', href: '#certificates' },
+  { label: 'Publications', href: '#publications' },
   { label: 'Ask AI', href: '#ai' },
   { label: 'Contact', href: '#contact' },
 ]

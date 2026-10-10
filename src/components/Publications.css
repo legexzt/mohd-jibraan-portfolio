@@ -1,0 +1,17 @@
+/* Publications section — reuses the Certificates card/lightbox system.
+   Only publication-specific tweaks live here. */
+
+.pubs-grid {
+  grid-template-columns: minmax(0, 560px);
+}
+
+.pub-desc {
+  color: var(--muted);
+  font-size: .88rem;
+  line-height: 1.55;
+  margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+  .pub-desc { font-size: .82rem; }
+}
